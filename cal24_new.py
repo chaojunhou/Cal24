@@ -1,12 +1,11 @@
 import math
 import copy
 import time
+import itertools
 CardsNumber=4
 ResultValue=24
 
-matrix=[]
-result=[]
-bool=[]
+
 def PointGame(n):
     i=0
     if(n==1):
@@ -80,19 +79,22 @@ def PointGame(n):
     return False
 
 if __name__=='__main__':
-    for i in range(0,CardsNumber):
-        print 'the '+str(i)+'th number:'
-        x=raw_input()
-        matrix.append([int(x),1])
-        result.append(x)
-    start=time.clock()
-    if(PointGame(CardsNumber)):
-        print 'Success\n'
-        print result[0]+'=24'
-    else:
-        print 'Fail.\n'
-    print time.clock()-start
-        
+    matrix=[]
+    result=[]
+    tests = [[2,7,10,7], [2,3,5,12], [1,6,11,13], [9,11,12,12], [1,3,9,10],
+             [1,1,5,5],[1, 6, 11, 13], [ 2,  2, 13, 13]]
+    for test in tests:
+        for x in itertools.permutations(test,4):
+            matrix=[]
+            result=[]
+            for val in x:
+                matrix.append([int(val),1])
+                result.append(str(val))            
+            if(PointGame(CardsNumber)):
+                print 'The solution is -->', result[0]+'=24'
+                break
+        else:
+            print 'Fail' 
         
               
             
